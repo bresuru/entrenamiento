@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Actualizar</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+</head>
+<body>
+	
+	<h1 th:text="${men}"></h1>
+
+		<div style="max-width: 70%; margin-top: 10%;" class="container">
+			<form class="needs-validation" th:action="@{/update/}+${id_c}"
+				th:object=${clientes} method="POST" novalidate>
+				<div class="form-row">
+					<div class="col-sm-12">
+						<h3 class="card-header">Actualizar Registro</h3>
+					</div>
+					
+<!-- 					type="hidden" -->
+					
+					<div class="col-sm-6">
+						<label for="id">ID</label> 
+						<input th:field="*{id}"  id="id"
+							class="form-control" disabled="disabled"/>
+					</div>
+					<div class="col-sm-6">
+						<label>Nombre</label> <input for="validationCustom01"
+							id="validationCustom01" th:field="*{nombre}" type="text"
+							class="form-control" required />
+						<div class="valid-feedback">Correcto!</div>
+						<div class="invalid-feedback">Este campo es requerido.</div>
+					</div>
+					<div class="col-sm-6">
+						<label>Apellido</label> <input for="validationCustom02"
+							id="validationCustom02" th:field="*{apellido}" type="text"
+							class="form-control" required />
+						<div class="valid-feedback">Correcto!</div>
+						<div class="invalid-feedback">Este campo es requerido.</div>
+					</div>
+					<div class="col-sm-6">
+						<label>Ciudad</label> <input for="validationCustom03"
+							id="validationCustom03" th:field="*{ciudad}" type="text"
+							class="form-control" required />
+						<div class="valid-feedback">Correcto!</div>
+						<div class="invalid-feedback">Este campo es requerido.</div>
+					</div>
+					<div class="col-sm-6">
+						<label>Tel&eacute;fono o Celular</label> <input
+							for="validationCustom04" id="validationCustom04"
+							th:field="*{telefono}" type="number" class="form-control"
+							required />
+						<div class="valid-feedback">Correcto!</div>
+						<div class="invalid-feedback">Verifique esta
+							informaci&oacute;n.</div>
+					</div>
+					<div class="col-sm-6">
+						<label>Correo</label> <input for="validationCustom05"
+							id="validationCustom05" th:field="*{correo}" type="email"
+							class="form-control" required />
+						<div class="valid-feedback">Correcto!</div>
+						<div class="invalid-feedback">Verifique esta
+							informaci&oacute;n.</div>
+						<br>
+						<div style="margin-bottom: 15%;" class="container-sm-4">
+							<input style="margin-left: 52%; width: 46%;" type="submit"
+								value="Guardar" class="btn btn-outline-success col-md-12 "
+								>
+						</div>
+					</div>
+				</div>
+			</form>
+			
+		</div>
+		<!-- 		<p th:text="${name}"></p> -->
+	<script>
+				(function() {
+					'use strict';
+					window.addEventListener('load', function() {
+						var forms = document
+								.getElementsByClassName('needs-validation');
+						var validation = Array.prototype.filter.call(forms,
+								function(form) {
+									form.addEventListener('submit', function(
+											event) {
+										if (form.checkValidity() === false) {
+											event.preventDefault();
+											event.stopPropagation();
+										}
+										form.classList.add('was-validated');
+									}, false);
+								});
+					}, false);
+				})();
+			</script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
+</html>
+
+

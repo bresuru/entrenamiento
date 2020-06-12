@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Json</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+</head>
+<body>
+<h1>Esto es un ejemplo Json</h1>
+
+<button onclick="ajax_get_json()">Mostrar datos</button>
+<div id="contenedor">
+
+</div>
+
+<script type="text/javascript">
+
+var resultado = document.getElementById("contenedor");
+
+function ajax_get_json()
+{
+
+	var xmlhttp;
+	
+	if(window.XMLHttpRequest){
+		xmlhttp = new XMLHttpRequest();		
+	}else{
+		xmlhttp = new ActiveXObjetc("Microsoft.XMLHTTP");
+	}
+
+	xmlhttp.onreadystatechange = function(){
+		if(xmlhttp.readyState === 4 && xmlhttp.status === 200){
+		var datos= JSON.parse(xmlhttp.responseText);
+			for(var i in datos){
+				resultado.innerHTML += i + ": " + datos[i] + "<br/>";
+				
+			}
+			
+		}
+	}
+	
+	xmlhttp.open("GET" , "datos.json", true );
+	xmlhttp.send();
+}
+</script>
+
+
+
+<!-- <script type="text/javascript"> -->
+
+<!-- // 	var objetos = {"Personas":[ -->
+<!-- // 		{"nombre":"Jhon","edad":33}, -->
+<!-- // 		{"nombre":"Maribel","edad":19} -->
+<!-- // 	]}; -->
+<!-- // 	document.getElementById('content').innerHTML = objetos.Personas[1].nombre; -->
+<!-- </script> -->
+
+
+<a href="index" class=" btn-primary">Volver</a>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.5.0.js"
+		integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+		crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="acciones.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script>
+
+</body>
+</html>

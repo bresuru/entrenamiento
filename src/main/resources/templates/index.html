@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>CRUD SprintBoot</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css"
+	href="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.css" />
+</head>
+<body style="margin-top: -30px;">
+	<div class="container mt-2 table-responsive">
+
+
+		<br> <br>
+		<!-- 		Boton de la ventana Modal -->
+		<button type="button" class="btn btn-dark" data-toggle="modal"
+			data-target="#nuevoRegistro">Nuevo registro</button>
+
+		<h3 style="text-align: center;">CRUD SprintBoot</h3>
+		<a href="json">json</a>
+
+		<table class="table tableone">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Apellido</th>
+					<th scope="col">Ciudad</th>
+					<th scope="col">Tel&eacute;fono</th>
+					<th scope="col">Correo</th>
+					<th scope="col">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="listClient : ${listClientes}">
+					<tr style="height: 13px;">
+						<td style="font-size: 14px;" th:text="${listClient.id}"></td>
+						<td style="font-size: 14px;" th:text="${listClient.nombre}"></td>
+						<td style="font-size: 14px;" th:text="${listClient.apellido}"></td>
+						<td style="font-size: 14px;" th:text="${listClient.ciudad}"></td>
+						<td style="font-size: 14px;" th:text="${listClient.telefono}"></td>
+						<td style="font-size: 14px;" th:text="${listClient.correo}"></td>
+						<td><a style="font-size: 13px; height: 30px;"
+							th:href="@{/editar/}+${listClient.id}"
+							class="btn btn-outline-primary">Editar</a> <a
+							style="font-size: 13px; color: red; height: 30px;"
+							th:onclick="eliminar([[${listClient.id}]])"
+							class="btn btn-outline-danger">Eliminar</a></td>
+					</tr>
+			</tbody>
+		</table>
+
+
+		<a th:href="@{/report}" class="btn btn-dark">
+			Generar reporte en pdf
+		</a>
+
+		<!-- Modal -->
+		<div class="modal fade" id="nuevoRegistro" tabindex="-1" role="dialog"
+			aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-scrollable" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalScrollableTitle">Nuevo
+							registro</h5>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form class="needs-validation" th:action="@{/save}"
+							th:object=${clientes} method="POST" novalidate>
+							<div class="form-row ">
+								<div class="col-sm-6">
+									<label>ID</label> <input th:field="*{id}" type="text"
+										class="form-control" disabled />
+								</div>
+								<div class="col-sm-6">
+									<label>Nombre</label> <input for="validationCustom01"
+										id="validationCustom01" th:field="*{nombre}" type="text"
+										class="form-control" required />
+									<div class="valid-feedback">Correcto!</div>
+									<div class="invalid-feedback">Este campo es requerido.</div>
+								</div>
+								<div class="col-sm-6">
+									<label>Apellido</label> <input for="validationCustom02"
+										id="validationCustom02" th:field="*{apellido}" type="text"
+										class="form-control" required />
+									<div class="valid-feedback">Correcto!</div>
+									<div class="invalid-feedback">Este campo es requerido.</div>
+								</div>
+								<div class="col-sm-6">
+									<label>Ciudad</label> <input for="validationCustom03"
+										id="validationCustom03" th:field="*{ciudad}" type="text"
+										class="form-control" required />
+									<div class="valid-feedback">Correcto!</div>
+									<div class="invalid-feedback">Este campo es requerido.</div>
+								</div>
+								<div class="col-sm-6">
+									<label>Tel&eacute;fono o Celular</label> <input
+										for="validationCustom04" id="validationCustom04"
+										th:field="*{telefono}" type="number" class="form-control"
+										required />
+									<div class="valid-feedback">Correcto!</div>
+									<div class="invalid-feedback">Verifique esta
+										informaci&oacute;n.</div>
+								</div>
+								<div class="col-sm-6">
+									<label>Correo</label> <input for="validationCustom05"
+										id="validationCustom05" th:field="*{correo}" type="email"
+										class="form-control" required />
+									<div class="valid-feedback">Correcto!</div>
+									<div class="invalid-feedback">Verifique esta
+										informaci&oacute;n.</div>
+									<br>
+
+									<div style="margin-left: -430%;" class="modal-footer">
+										<input style="max-width: 18%;" data-dismiss="modal"
+											type="submit" value="Volver"
+											class="btn btn-outline-secondary col-md-6 "> <input
+											style="max-width: 18%;" th:onclick="validacion()"
+											type="submit" value="Guardar"
+											class="btn btn-outline-success col-md-6 ">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Termina ventana modal -->
+	</div>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.5.0.js"
+		integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+		crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="acciones.js"></script>
+	<script type="text/javascript"
+		src="https://cdn.datatables.net/v/dt/dt-1.10.21/datatables.min.js"></script>
+
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$('.tableone')
+									.DataTable(
+											{
+												language : {
+													processing : "Procesando...",
+													search : "Buscar:",
+													lengthMenu : "Agrupar: _MENU_ registros.",
+													info : "Mostrando: _START_ a _END_ registros, de _TOTAL_ en total.",
+													infoEmpty : "El registro no se encontro, 0 elementos.",
+													infoFiltered : "(Filtrado en _MAX_ registros en total.)",
+													infoPostFix : "",
+													loadingRecords : "Cargando...",
+													zeroRecords : "Registro no encontrado.",
+													emptyTable : "No hay datos disponibles en la tabla.",
+													paginate : {
+														first : "Primero",
+														previous : "Anterior",
+														next : "Siguiente",
+														last : "Ultimo"
+													},
+													aria : {
+														sortAscending : ": seleccione para ordenar la columna de manera ascendente.",
+														sortDescending : ": seleccione para ordenar la columna de manera descendente."
+													}
+												}
+											});
+						});
+	</script>
+
+	<script type="text/javascript">
+		function editar(id) {
+
+			$ - ajax({
+
+				url : "/edit/" + id
+
+			});
+
+		}
+	</script>
+
+</body>
+</html>
